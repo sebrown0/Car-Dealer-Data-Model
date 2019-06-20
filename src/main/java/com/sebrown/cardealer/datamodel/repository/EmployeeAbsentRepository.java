@@ -28,5 +28,4 @@ public interface EmployeeAbsentRepository extends CrudRepository<EmployeeAbsent,
 			+ " WHERE e.absentYear.year=:year" 
 			+ " AND e.absentYear.employee.empId=:empId")
 	List<EmployeeAbsent> findEmployeeAbsentRecordsForYear(short year, int empId);
-	
 }

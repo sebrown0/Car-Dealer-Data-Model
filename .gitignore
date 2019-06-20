@@ -13,6 +13,10 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.mvn/
+HELP.md
+mvnw
+mvnw.cmd
 
 # External tool builders
 .externalToolBuilders/
@@ -54,3 +58,4 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+/target/

@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.StoredProcedureQuery;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,5 +90,14 @@ public class EmployeeTests {
 		long days = empRepoHelper
 				.calculateNumberOfDaysAbsentInclusive(LocalDate.of(2018, 6, 18), LocalDate.of(2018, 6, 24));
 		assertEquals(6, days);
+	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void rollCall() {
+		StoredProcedureQuery rollCall = em.createNamedStoredProcedureQuery("empRollCallByDeptartment");
+        rollCall.setParameter("department_id", 1);
+        List<Employee> emps = rollCall.getResultList();
+		assertEquals("Sid James", emps.get(0).getFirstName() + " " + emps.get(0).getLastName());
 	}
 }

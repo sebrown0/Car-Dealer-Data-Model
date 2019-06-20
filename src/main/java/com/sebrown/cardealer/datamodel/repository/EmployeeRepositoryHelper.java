@@ -224,4 +224,9 @@ public class EmployeeRepositoryHelper {
 		long diff = (annualLeave - numDaysAbsent) - numDaysRequested;
 		return (numDaysRequested <= (diff)) ? true : false;
 	}
+
+	public List<Employee> employeeRollCall() {
+		
+		return null;
+	}
 }

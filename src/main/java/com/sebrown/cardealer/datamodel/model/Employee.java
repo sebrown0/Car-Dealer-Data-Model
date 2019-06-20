@@ -13,7 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 
@@ -39,8 +44,21 @@ import lombok.Setter;
 	query = "select e from Employee e where e.empId = :eId and e.department.dept_id = :dId")
 @NamedQuery(name = "getEmpsNames", 
 	query = "select e.firstName from Employee e")
+@NamedStoredProcedureQueries({
+	@NamedStoredProcedureQuery(
+		name = "empRollCallByDeptartment", 
+	    procedureName = "RollCall", 
+	    resultClasses = { Employee.class }, 
+	    parameters = { 
+	        @StoredProcedureParameter(
+	          name = "department_id", 
+	          type = Integer.class, 
+	          mode = ParameterMode.IN)
+	    })
+	})
 @Getter @Setter 
 @NoArgsConstructor
+@ToString
 public class Employee implements Serializable {
 	
 	private static final long serialVersionUID = 4659727704214359439L;
