@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author Steve Brown
@@ -25,6 +26,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@ToString
 public class AbsentYear implements Serializable {
 
 	private static final long serialVersionUID = -4971738461596965212L;

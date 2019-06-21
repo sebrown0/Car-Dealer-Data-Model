@@ -16,7 +16,7 @@ import com.sebrown.cardealer.datamodel.model.EmployeeAbsent;
  */
 public interface EmployeeAbsentRepository extends CrudRepository<EmployeeAbsent, Long>{
 	
-	@Query("SELECT SUM(e.numDays)" 
+	@Query("SELECT COALESCE(sum(e.numDays), 0)" 
 			+ " FROM EmployeeAbsent e" 
 			+ " WHERE e.absentYear.year=:year" 
 			+ " AND e.absentYear.employee.empId=:empId"

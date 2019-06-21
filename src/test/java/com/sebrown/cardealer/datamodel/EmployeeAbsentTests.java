@@ -49,7 +49,7 @@ public class EmployeeAbsentTests {
 	public void calaculateEmployeeAnnualLeaveRemaining() {
 		long leave = rasRepo.findSeniority(4).getHolidayEntitlement();
 		long numDays = empAbsentRepo.numDaysEmployeeHasBeenAbsent((short)2019, 1, "Annual Leave");
-		assertEquals(22, leave - numDays);
+		assertEquals(24, leave - numDays);
 	}
 
 	@Test

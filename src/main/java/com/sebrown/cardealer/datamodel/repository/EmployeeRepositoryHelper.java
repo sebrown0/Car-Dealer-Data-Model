@@ -222,11 +222,6 @@ public class EmployeeRepositoryHelper {
 		long numDaysAbsent = empAbsentRepo.numDaysEmployeeHasBeenAbsent(absYear.getYear(), empId, "Annual Leave");
 		long annualLeave = rasRepo.findSeniority(empId).getHolidayEntitlement();
 		long diff = (annualLeave - numDaysAbsent) - numDaysRequested;
-		return (numDaysRequested <= (diff)) ? true : false;
-	}
-
-	public List<Employee> employeeRollCall() {
-		
-		return null;
+		return (diff >= 0 && diff <= annualLeave ) ? true : false;
 	}
 }
