@@ -1,0 +1,37 @@
+[{
+	"modelVin": "VW17219IQJ",
+	"manufacturer": "Volkswagen",
+	"modelName": "Golf",
+	"dateOfManufacture": "2019-04-22",
+	"horsepower": 1400,
+	"colour": "red",
+	"transmission": "auto",
+	"retailPrice": 20000,
+	"ac": 1,
+	"sunroof": 0,
+	"alloyWheels": 1	
+},{
+	"modelVin": "VW17989ADZ",
+	"manufacturer": "Volkswagen",
+	"modelName": "Golf",
+	"dateOfManufacture": "2019-05-12",
+	"horsepower": 1400,
+	"colour": "blue",
+	"transmission": "auto",
+	"retailPrice": 20500,
+	"ac": 1,
+	"sunroof": 1,
+	"alloyWheels": 1
+	},{
+	"modelVin": "FD95219PLJ",
+	"manufacturer": "Ford",
+	"modelName": "Focus",
+	"dateOfManufacture": "2019-06-11",
+	"horsepower": 1600,
+	"colour": "black",
+	"transmission": "manual",
+	"retailPrice": 24500,
+	"ac": 1,
+	"sunroof": 1,
+	"alloyWheels": 1
+}]

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sebrown.cardealer.datamodel.dto.EmployeeDto;
-import com.sebrown.cardealer.datamodel.model.Employee;
-import com.sebrown.cardealer.datamodel.repository.DepartmentRepository;
-import com.sebrown.cardealer.datamodel.repository.EmployeeRepositoryHelper;
-import com.sebrown.cardealer.datamodel.service.EmployeeService;
+import com.sebrown.cardealer.datamodel.model.hr.Employee;
+import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository;
+import com.sebrown.cardealer.datamodel.repository.hr.EmployeeRepositoryHelper;
+import com.sebrown.cardealer.datamodel.service.hr.EmployeeService;
 
 /**
  * @author Steve Brown

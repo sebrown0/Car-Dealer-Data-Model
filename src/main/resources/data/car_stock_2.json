@@ -1,0 +1,41 @@
+[{
+	"vin": "VW19749IQJ",
+	"manufacturer": "Volkswagen",
+	"model_name": "Golf",
+	"horsepower": 1400,
+	"colour": "red",
+	"transmission": "auto",
+	"retail_price": 20000,
+	"extras": {
+		"ac": 1,
+		"sunroof": 0,
+		"alloy_wheels": 1
+	}
+	
+},{
+	"vin": "VW17229ADZ",
+	"manufacturer": "Volkswagen",
+	"model_name": "Golf",
+	"horsepower": 1400,
+	"colour": "blue",
+	"transmission": "auto",
+	"retail_price": 20500,
+	"extras": {
+		"ac": 1,
+		"sunroof": 1,
+		"alloy_wheels": 1
+		}
+	},{
+	"vin": "FD95029PLJ",
+	"manufacturer": "Ford",
+	"model_name": "Focus",
+	"horsepower": 1600,
+	"colour": "black",
+	"transmission": "manual",
+	"retail_price": 24500,
+	"extras": {
+		"ac": 1,
+		"sunroof": 1,
+		"alloy_wheels": 1
+		}
+}]

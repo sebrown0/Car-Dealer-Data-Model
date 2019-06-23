@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import com.sebrown.cardealer.datamodel.repository.EmployeeRepositoryHelper;
+import com.sebrown.cardealer.datamodel.repository.hr.EmployeeRepositoryHelper;
 
 @SpringBootApplication(exclude = {
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
