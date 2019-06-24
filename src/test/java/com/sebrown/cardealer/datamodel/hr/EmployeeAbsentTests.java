@@ -1,9 +1,11 @@
 package com.sebrown.cardealer.datamodel.hr;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,15 +43,27 @@ public class EmployeeAbsentTests {
 					
 	@Test
 	public void findDaysAbsentForYearForEmployeeForReason() {
-		long numDays = empAbsentRepo.numDaysEmployeeHasBeenAbsent((short)2019, 1, "Sick");
-		assertEquals(1, numDays);
+		Employee emp = empRepo.findById(2).orElse(null);
+		AbsentYear absentYear = absYearRepo.findByEmployeeAndYear(emp, (short)2020);
+		long numDays = empAbsentRepo.numDaysEmployeeHasBeenAbsent(absentYear, "Sick");
+		assertEquals(3, numDays);
 	}
 
 	@Test
 	public void calaculateEmployeeAnnualLeaveRemaining() {
+		Employee emp = empRepo.findById(1).orElse(null);
+		AbsentYear absentYear = absYearRepo.findByEmployeeAndYear(emp, (short)2019);
 		long leave = rasRepo.findSeniority(4).getHolidayEntitlement();
-		long numDays = empAbsentRepo.numDaysEmployeeHasBeenAbsent((short)2019, 1, "Annual Leave");
+		long numDays = empAbsentRepo.numDaysEmployeeHasBeenAbsent(absentYear,  "Annual Leave");
 		assertEquals(24, leave - numDays);
+	}
+	
+	@Test
+	public void findEmployeeAbsentRecordsForYear() {
+		Employee emp = empRepo.findById(1).orElse(null);
+		AbsentYear absentYear = absYearRepo.findByEmployeeAndYear(emp, (short)2019);
+		List<EmployeeAbsent> empAbs = empAbsentRepo.findEmployeeAbsentRecordsForYear(absentYear.getYear(), emp.getEmpId());
+		assertFalse(empAbs.isEmpty());
 	}
 
 	@Test
@@ -80,7 +94,8 @@ public class EmployeeAbsentTests {
 		Employee emp = empRepo.findById(5).orElse(null);
 		empRepoHelper.recordEmployeeAbsent(
 				emp, LocalDate.of(2019, 9, 1), LocalDate.of(2019, 9, 25), "Sick");
-		long numDays = empAbsentRepo.numDaysEmployeeHasBeenAbsent((short)2019, 5, "Sick");
+		AbsentYear absYear = absYearRepo.findByEmployeeAndYear(emp, (short)2019);
+		long numDays = empAbsentRepo.numDaysEmployeeHasBeenAbsent(absYear, "Sick");
 		assertEquals(18, numDays);
 	}
 }

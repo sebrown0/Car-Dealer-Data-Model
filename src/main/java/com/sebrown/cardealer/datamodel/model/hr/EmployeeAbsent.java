@@ -44,10 +44,10 @@ public class EmployeeAbsent {
 	@Column(name = "reason", nullable = false)
 	private String reason;
 	
-	@ManyToOne @JoinColumns({
-        @JoinColumn(name="absent_year_id", referencedColumnName="absent_id"),
-        @JoinColumn(name="absent_year_emp_id", referencedColumnName="emp_id")
-    })
+	@ManyToOne 
+	@JoinColumns({
+		@JoinColumn(name="absent_year_id", referencedColumnName="absent_id"),
+		@JoinColumn(name="absent_year_emp_id", referencedColumnName="emp_id")})
     private AbsentYear absentYear;
 	
 }

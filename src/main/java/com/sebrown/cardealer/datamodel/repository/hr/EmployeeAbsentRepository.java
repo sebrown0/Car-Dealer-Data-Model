@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.sebrown.cardealer.datamodel.model.hr.AbsentYear;
 import com.sebrown.cardealer.datamodel.model.hr.EmployeeAbsent;
 
 /**
@@ -18,10 +19,10 @@ public interface EmployeeAbsentRepository extends CrudRepository<EmployeeAbsent,
 	
 	@Query("SELECT COALESCE(sum(e.numDays), 0)" 
 			+ " FROM EmployeeAbsent e" 
-			+ " WHERE e.absentYear.year=:year" 
-			+ " AND e.absentYear.employee.empId=:empId"
+			+ " WHERE e.absentYear=:absentYear" 
 			+ " AND e.reason=:reason")
-	long numDaysEmployeeHasBeenAbsent(short year, int empId, String reason);
+	long numDaysEmployeeHasBeenAbsent(AbsentYear absentYear, String reason);
+
 	
 	@Query("SELECT e" 
 			+ " FROM EmployeeAbsent e" 

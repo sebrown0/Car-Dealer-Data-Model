@@ -148,8 +148,9 @@ public class EmployeeRepositoryHelper {
 	
 	/**
 	 * Find the year for an employee's absenteeism.
+	 * If the employee has no absent record for the year, create one.
 	 */
-	private AbsentYear findAbsentYear(Employee emp, LocalDate startDate) {
+	private AbsentYear findAbsentYear(Employee emp, LocalDate startDate) {	
 		AbsentYear absentYear = absYearRepo.findByEmployeeAndYear(emp, (short)startDate.getYear());
 		if(absentYear == null) {
 			absentYear = createAbsentYear(emp, startDate);
@@ -219,7 +220,7 @@ public class EmployeeRepositoryHelper {
 	 * If the number of days requested are greater than those remaining, deny request. 
 	 */
 	private boolean checkEmployeesAnnualLeaveRecordForYear(AbsentYear absYear, long numDaysRequested, int empId) {
-		long numDaysAbsent = empAbsentRepo.numDaysEmployeeHasBeenAbsent(absYear.getYear(), empId, "Annual Leave");
+		long numDaysAbsent = empAbsentRepo.numDaysEmployeeHasBeenAbsent(absYear, "Annual Leave");
 		long annualLeave = rasRepo.findSeniority(empId).getHolidayEntitlement();
 		long diff = (annualLeave - numDaysAbsent) - numDaysRequested;
 		return (diff >= 0 && diff <= annualLeave ) ? true : false;

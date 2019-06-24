@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sebrown.cardealer.datamodel.controller;
+package com.sebrown.cardealer.datamodel.controller.stock;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import com.sebrown.cardealer.datamodel.dto.EmployeeDto;
 import com.sebrown.cardealer.datamodel.model.hr.Employee;
 import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository;
 import com.sebrown.cardealer.datamodel.repository.hr.EmployeeRepositoryHelper;
+import com.sebrown.cardealer.datamodel.repository.stock.CarRepository;
 import com.sebrown.cardealer.datamodel.service.hr.EmployeeService;
 
 /**
@@ -24,34 +25,30 @@ import com.sebrown.cardealer.datamodel.service.hr.EmployeeService;
  */
 @RestController
 @RequestMapping("/api")
-public class EmployeeController {
+public class CarController {
 
-	@Autowired
-	EmployeeRepositoryHelper empRepoImpl;
-	
-//	@Autowired
-//	EmployeeRepository empRepo;
 	
 	@Autowired
-	DepartmentRepository deptRepo;
+	CarRepository carRepo;
 	
-	@Autowired
-    EmployeeService empService;
+	//@Autowired
 	
-	@GetMapping("/employee")
-	public List<String> getAllEmployees(){
-		return empRepoImpl.getEmployeeNames();
-	}
+	
+	
+//	@GetMapping("/employee")
+//	public List<String> getAllEmployees(){
+//		return empRepoImpl.getEmployeeNames();
+//	}
 	
 //	@GetMapping("/employee/{id}")
 //	public Employee getEmployeeByID(@PathVariable(value="id") Integer empId){
 //		return empRepo.findById(empId).get();
 //	}
 	
-	@PostMapping(path = "/employee", consumes = "application/json", produces = "application/json")		
-	public String updateEmployee(@RequestBody EmployeeDto empDto){
-		Employee e = empService.saveNewEmployee(empDto);
-		return e.getFirstName() + " " + e.getLastName() + " " + e.getEmpId();
-	}
+//	@PostMapping(path = "/employee", consumes = "application/json", produces = "application/json")		
+//	public String updateEmployee(@RequestBody EmployeeDto empDto){
+//		Employee e = empService.saveNewEmployee(empDto);
+//		return e.getFirstName() + " " + e.getLastName() + " " + e.getEmpId();
+//	}
 	
 }

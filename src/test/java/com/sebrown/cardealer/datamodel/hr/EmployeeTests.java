@@ -39,6 +39,12 @@ public class EmployeeTests {
 	EntityManager em;
 			
 	@Test
+	public void findEmpById() {
+		Employee emp = empRepo.findById(5).orElse(null);
+		assertTrue(emp != null);
+	}
+	
+	@Test
 	public void findEmployeesForDepartment() {
 		List <Employee> departmentEmps = empRepo.findEmployeesForDeptId(1);
 		assertTrue(departmentEmps.stream().count() > 0);

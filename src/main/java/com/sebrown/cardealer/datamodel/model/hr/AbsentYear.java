@@ -4,14 +4,17 @@
 package com.sebrown.cardealer.datamodel.model.hr;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +36,11 @@ public class AbsentYear implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int absentId;
 	
-	@ManyToOne @JoinColumn(name = "emp_id", referencedColumnName = "emp_id")
+	@ManyToOne @JoinColumn(name = "emp_id")
 	private Employee employee;
+	
+	@OneToMany(mappedBy="absentYear", fetch=FetchType.EAGER) 
+	private List<EmployeeAbsent> employeeAbsents;
 	
 	@Column(name = "year", nullable = false)
 	private short year;
