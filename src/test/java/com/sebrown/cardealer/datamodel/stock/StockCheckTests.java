@@ -1,6 +1,7 @@
 package com.sebrown.cardealer.datamodel.stock;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -54,16 +55,10 @@ public class StockCheckTests {
 	/*
 	 * Tests for StockFile.
 	 */
-	@Test
-	public void nextStockFileName() {
-		String nextFile = stockFileService.getNextFileName();
-		assertEquals("car_stock_1.json", nextFile);
-	}
 	
 	@Test
 	public void checkForNewStockFile() {
-		String newFile = stockFileService.checkForNewStockFile();
-		assertEquals(GetNextStockFileService.CAR_STOCK_PATH + stockFileService.getNextFileName(), newFile);
+		assertTrue(stockFileService.aNewStockFileHasBeenFound());
 	}
 		
 	/*
@@ -84,9 +79,9 @@ public class StockCheckTests {
 	}
 	
 	@Test 
-	public void mapCarDtoToEntityAndPersist() {
-		stockFileService.readStockFile(stockFileService.checkForNewStockFile());
-		Car car = carRepo.findById("FD95219PLJ").orElse(null);
+	public void stockUpdate() {
+		stockFileService.stockUpdate(statusRepo.findStockStatusByStatus("Awaiting Preparation"));
+		Car car = carRepo.findById("FD12345FCS").orElse(null);
 		assertEquals("black", car.getColour());
 	}
 	

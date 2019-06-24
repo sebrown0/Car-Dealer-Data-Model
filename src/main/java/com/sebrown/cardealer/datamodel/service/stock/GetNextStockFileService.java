@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,6 +40,7 @@ import lombok.Setter;
 @Service
 @Getter @Setter
 @RequiredArgsConstructor
+@Transactional
 public class GetNextStockFileService {
 
 	public static final String CAR_STOCK_PATH = ("src/main/resources/data/");
@@ -51,12 +53,18 @@ public class GetNextStockFileService {
 	private int fileNum; 
 	private String nextFileName;
 	
+	public void stockUpdate(StockStatus stockStatus) {
+		if(aNewStockFileHasBeenFound()) {
+			readStockFile(CAR_STOCK_PATH + nextFileName);
+		}
+	}
+	
 	/*
-	 * Check is there's a new stock file. If there is prepend path to file.
+	 * Check is there's a new stock file. 
 	 */
-	public String checkForNewStockFile() {
+	public boolean aNewStockFileHasBeenFound() {
 		nextFileName = getNextFileName();
-		return (isThereANewStockFile(CAR_STOCK_PATH + nextFileName)) ? CAR_STOCK_PATH + nextFileName : null;
+		return (isThereANewStockFile(CAR_STOCK_PATH + nextFileName)) ? true : false;
 	}
 	
 	/*
@@ -68,7 +76,7 @@ public class GetNextStockFileService {
 	}
 	
 	/*
-	 * Check to see if there's a new stock file.
+	 * Check to see if there's a new stock file on the specified path.
 	 */
 	private boolean isThereANewStockFile(String filePath) {
 		return (new File(filePath).exists()) ? true : false; 
@@ -77,7 +85,7 @@ public class GetNextStockFileService {
 	/*
 	 * Read a new stock file. If the file is read successfully then update associated tables.
 	 */
-	public void readStockFile(String stockFileName){
+	private void readStockFile(String stockFileName){
 		ObjectMapper mapper = new ObjectMapper();
 		List<CarDto> cars = null;
 		try {

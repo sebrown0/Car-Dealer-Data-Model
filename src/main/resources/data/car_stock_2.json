@@ -1,41 +1,38 @@
 [{
-	"vin": "VW19749IQJ",
+	"modelVin": "VW90319GLF",
 	"manufacturer": "Volkswagen",
-	"model_name": "Golf",
+	"modelName": "Golf",
+	"dateOfManufacture": "2019-05-30",
 	"horsepower": 1400,
-	"colour": "red",
+	"colour": "white",
 	"transmission": "auto",
-	"retail_price": 20000,
-	"extras": {
-		"ac": 1,
-		"sunroof": 0,
-		"alloy_wheels": 1
-	}
-	
+	"retailPrice": 21000,
+	"ac": 1,
+	"sunroof": 1,
+	"alloyWheels": 1	
 },{
-	"vin": "VW17229ADZ",
+	"modelVin": "VW12389POL",
 	"manufacturer": "Volkswagen",
-	"model_name": "Golf",
-	"horsepower": 1400,
+	"modelName": "Polo",
+	"dateOfManufacture": "2019-06-02",
+	"horsepower": 1200,
 	"colour": "blue",
-	"transmission": "auto",
-	"retail_price": 20500,
-	"extras": {
-		"ac": 1,
-		"sunroof": 1,
-		"alloy_wheels": 1
-		}
-	},{
-	"vin": "FD95029PLJ",
-	"manufacturer": "Ford",
-	"model_name": "Focus",
-	"horsepower": 1600,
-	"colour": "black",
 	"transmission": "manual",
-	"retail_price": 24500,
-	"extras": {
-		"ac": 1,
-		"sunroof": 1,
-		"alloy_wheels": 1
-		}
+	"retailPrice": 17500,
+	"ac": 1,
+	"sunroof": 1,
+	"alloyWheels": 1
+	},{
+	"modelVin": "FD95000MUS",
+	"manufacturer": "Ford",
+	"modelName": "Mustang",
+	"dateOfManufacture": "2018-08-11",
+	"horsepower": 5000,
+	"colour": "orange",
+	"transmission": "manual",
+	"retailPrice": 55000,
+	"ac": 1,
+	"sunroof": 1,
+	"alloyWheels": 1,
+	"registration": "MUSTANG 1"
 }]

@@ -1,5 +1,5 @@
 [{
-	"modelVin": "VW17219IQJ",
+	"modelVin": "VW17219GLF",
 	"manufacturer": "Volkswagen",
 	"modelName": "Golf",
 	"dateOfManufacture": "2019-04-22",
@@ -11,7 +11,7 @@
 	"sunroof": 0,
 	"alloyWheels": 1	
 },{
-	"modelVin": "VW17989ADZ",
+	"modelVin": "VW17989GLF",
 	"manufacturer": "Volkswagen",
 	"modelName": "Golf",
 	"dateOfManufacture": "2019-05-12",
@@ -23,7 +23,7 @@
 	"sunroof": 1,
 	"alloyWheels": 1
 	},{
-	"modelVin": "FD95219PLJ",
+	"modelVin": "FD12345FCS",
 	"manufacturer": "Ford",
 	"modelName": "Focus",
 	"dateOfManufacture": "2019-06-11",
