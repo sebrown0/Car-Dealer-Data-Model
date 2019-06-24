@@ -32,16 +32,20 @@ import lombok.Setter;
 /**
  * @author Steve Brown
  *
- * Find the next stock file name by getting the last used
- * name and incrementing the file id by one.
+ * If there is a new stock file read it and persist it to the 
+ * the data source. 
  * 
- * Example: car_stock_1.json becomes car_stock_1.json. 
+ * Then update the stock list table with the date of the successful read.
+ * Update the stock file table with the next file to read.
+ * 
+ * For Example: car_stock_1.json becomes car_stock_2.json.
+ *  
  */
 @Service
 @Getter @Setter
 @RequiredArgsConstructor
 @Transactional
-public class GetNextStockFileService {
+public class UpdateStockServiceImpl implements UpdateStockService {
 
 	public static final String CAR_STOCK_PATH = ("src/main/resources/data/");
 	// Injected with Lombok
@@ -53,6 +57,10 @@ public class GetNextStockFileService {
 	private int fileNum; 
 	private String nextFileName;
 	
+	/*
+	 * Initiate a stock update.
+	 */
+	@Override
 	public void stockUpdate(StockStatus stockStatus) {
 		if(aNewStockFileHasBeenFound()) {
 			readStockFile(CAR_STOCK_PATH + nextFileName);
@@ -62,6 +70,7 @@ public class GetNextStockFileService {
 	/*
 	 * Check is there's a new stock file. 
 	 */
+	@Override
 	public boolean aNewStockFileHasBeenFound() {
 		nextFileName = getNextFileName();
 		return (isThereANewStockFile(CAR_STOCK_PATH + nextFileName)) ? true : false;
@@ -70,6 +79,7 @@ public class GetNextStockFileService {
 	/*
 	 * Get the name of the expected next stock file.
 	 */
+	@Override
 	public String getNextFileName() {
 		fileNum = stockFileRepo.findLastStockFileNum() + 1;
 		return String.format("car_stock_%d.json", fileNum);

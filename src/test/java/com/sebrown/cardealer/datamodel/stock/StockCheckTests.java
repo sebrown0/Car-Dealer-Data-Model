@@ -18,7 +18,7 @@ import com.sebrown.cardealer.datamodel.repository.stock.CarRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockFileRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockListRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockStatusRepository;
-import com.sebrown.cardealer.datamodel.service.stock.GetNextStockFileService;
+import com.sebrown.cardealer.datamodel.service.stock.UpdateStockService;
 
 /*
  * Tests for Stock related functions.
@@ -41,7 +41,7 @@ public class StockCheckTests {
 	CarRepository carRepo;
 	
 	@Autowired
-	GetNextStockFileService stockFileService;
+	UpdateStockService updateStockService;
 	
 	/*
 	 * Tests for StockStatus.
@@ -58,7 +58,7 @@ public class StockCheckTests {
 	
 	@Test
 	public void checkForNewStockFile() {
-		assertTrue(stockFileService.aNewStockFileHasBeenFound());
+		assertTrue(updateStockService.aNewStockFileHasBeenFound());
 	}
 		
 	/*
@@ -80,7 +80,7 @@ public class StockCheckTests {
 	
 	@Test 
 	public void stockUpdate() {
-		stockFileService.stockUpdate(statusRepo.findStockStatusByStatus("Awaiting Preparation"));
+		updateStockService.stockUpdate(statusRepo.findStockStatusByStatus("Awaiting Preparation"));
 		Car car = carRepo.findById("FD12345FCS").orElse(null);
 		assertEquals("black", car.getColour());
 	}
