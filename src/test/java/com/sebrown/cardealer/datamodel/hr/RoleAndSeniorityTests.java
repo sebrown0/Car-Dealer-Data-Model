@@ -46,7 +46,7 @@ public class RoleAndSeniorityTests {
 
 	@Test
 	public void checkEmpsSalaryIsInCorrectSalaryRange() {
-		Employee e = empRepo.findById(1).orElse(null);
+		Employee e = empRepo.findById(3).orElse(null);
 		Seniority s = roleRepo.findSeniority(e.getRas().getRasId());
 		assertTrue("Employee's salary is lower then the min salary allowed", e.getSalary().compareTo(s.getSalaryMin()) >= 0);
 		assertTrue("Employee's salary is higher then the max salary allowed", e.getSalary().compareTo(s.getSalaryMax()) <= 0);

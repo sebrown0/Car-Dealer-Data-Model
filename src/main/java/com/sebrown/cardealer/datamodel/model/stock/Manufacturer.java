@@ -3,6 +3,7 @@
  */
 package com.sebrown.cardealer.datamodel.model.stock;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +25,12 @@ import lombok.Setter;
  *
  */
 @Entity
-@Getter @Setter 
+@Getter @Setter
 @NoArgsConstructor
-public class Manufacturer {
+public class Manufacturer implements Serializable {
 	
+	private static final long serialVersionUID = -5804973785390817892L;
+
 	@Id	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "manufacturer_id")
 	private Long id;

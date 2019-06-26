@@ -73,9 +73,7 @@ public class StockCheckTests {
 	@Test 
 	public void findCarsForADefinedStockStatus() {
 		List<Car> carStock = listRepo.findCarsForADefinedStockStatus(statusRepo.findStockStatusByStatus("Awaiting Preparation"));
-		for (Car car : carStock) {
-			System.out.println(car);
-		}
+		assertEquals("FD12345FCS", carStock.get(0).getModelVin());
 	}
 	
 	@Test 

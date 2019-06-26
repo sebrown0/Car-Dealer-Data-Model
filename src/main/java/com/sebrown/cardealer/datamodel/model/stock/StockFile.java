@@ -3,6 +3,7 @@
  */
 package com.sebrown.cardealer.datamodel.model.stock;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -12,10 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
  * @author Steve Brown
@@ -24,10 +22,10 @@ import lombok.ToString;
  */
 @Entity
 @Table(name="STOCK_FILE")
-@Getter @Setter
-@NoArgsConstructor
-@ToString
-public class StockFile {
+@Data
+public class StockFile implements Serializable{
+
+	private static final long serialVersionUID = 7587976947050115582L;
 
 	@Id @Column(name = "update_id") 
 	private int fileId;

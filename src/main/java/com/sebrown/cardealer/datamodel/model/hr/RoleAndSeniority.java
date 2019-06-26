@@ -3,6 +3,8 @@
  */
 package com.sebrown.cardealer.datamodel.model.hr;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,7 +24,9 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class RoleAndSeniority {
+public class RoleAndSeniority implements Serializable {
+
+	private static final long serialVersionUID = -8505809679449708506L;
 
 	@Id @Column(name = "ras_id")
 	private int rasId;

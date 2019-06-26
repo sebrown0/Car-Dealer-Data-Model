@@ -3,6 +3,7 @@
  */
 package com.sebrown.cardealer.datamodel.model.stock;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -22,7 +23,9 @@ import lombok.Data;
 @Entity
 @Table(name = "MODEL")
 @Data
-public class Car {
+public class Car implements Serializable {
+
+	private static final long serialVersionUID = -5915833929160559930L;
 
 	@Id
 	private String modelVin;

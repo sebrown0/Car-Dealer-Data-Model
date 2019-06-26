@@ -3,6 +3,7 @@
  */
 package com.sebrown.cardealer.datamodel.model.hr;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -23,7 +24,9 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class Seniority {
+public class Seniority implements Serializable {
+
+	private static final long serialVersionUID = 726346889134716295L;
 
 	@Id @Column(name = "seniority_id")
 	private int seniorityId;

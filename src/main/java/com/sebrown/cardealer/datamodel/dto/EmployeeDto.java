@@ -3,10 +3,8 @@ package com.sebrown.cardealer.datamodel.dto;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 
@@ -14,13 +12,13 @@ import lombok.Setter;
  *
  * Employee DTO.
  */
-@Getter @Setter 
-@AllArgsConstructor
+@Data
 @Builder
 public class EmployeeDto {
 	
 	private int empId;
 	private int deptId;
+	private Integer managerId;
 	private String firstName;
 	private String lastName;
 	private String deptName;

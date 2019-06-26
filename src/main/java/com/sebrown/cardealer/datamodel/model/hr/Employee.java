@@ -36,10 +36,6 @@ import lombok.Data;
  *
  * Employee entity.
  */
-@Entity
-@EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"empId", "department"}, 
-	allowGetters = true)
 @NamedQuery(name = "findEmployeeForDept", 
 	query = "select e from Employee e where e.empId = :eId and e.department.deptId = :dId")
 @NamedQuery(name = "getEmpsNames", 
@@ -54,8 +50,28 @@ import lombok.Data;
 	          name = "department_id", 
 	          type = Integer.class, 
 	          mode = ParameterMode.IN)
-	    })
-	})
+	}),
+	@NamedStoredProcedureQuery(
+		name="updateDepartmentManager",
+		procedureName = "UpdateDepartmentManager",
+		resultClasses = { Employee.class },
+		parameters = {
+			@StoredProcedureParameter(
+					name = "new_manager_id",
+					type = Integer.class,
+					mode = ParameterMode.IN
+			),
+			@StoredProcedureParameter(
+					name = "dept_name_in",
+					type = String.class,
+					mode = ParameterMode.IN
+			) 
+		})
+})
+
+@JsonIgnoreProperties(value = {"empId", "department"}, allowGetters = true)
+@Entity
+@EntityListeners(AuditingEntityListener.class)
 @Data
 public class Employee implements Serializable {
 	
@@ -73,6 +89,9 @@ public class Employee implements Serializable {
 	
 	@OneToMany(mappedBy="employee", fetch=FetchType.LAZY)
 	private Set<AbsentYear> absentYears;
+	
+	@Column(name = "manager_id", nullable = true)
+	private Integer managerId = null;
 	
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
@@ -96,6 +115,5 @@ public class Employee implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "hire_date", nullable = false)
 	private Calendar hireDate;
-			
 }
 

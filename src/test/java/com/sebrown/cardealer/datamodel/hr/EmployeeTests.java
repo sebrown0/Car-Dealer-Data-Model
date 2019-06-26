@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sebrown.cardealer.datamodel.dto.EmployeeDto;
@@ -26,7 +25,6 @@ import com.sebrown.cardealer.datamodel.repository.hr.EmployeeRepositoryHelper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class EmployeeTests {
 
 	@Autowired
@@ -80,13 +78,13 @@ public class EmployeeTests {
 			
 	@Test
 	public void findAnEmployeesSalary() {
-		Employee emp = empRepo.findById(1).orElse(null);
-		assertTrue("Incorrect salary.", emp.getSalary().compareTo(new BigDecimal("20000.00")) == 0);
+		Employee emp = empRepo.findById(3).orElse(null);
+		assertTrue("Incorrect salary.", emp.getSalary().compareTo(new BigDecimal("21222.00")) == 0);
 	}
 	
 	@Test
 	public void checkEmployeesSalary() {
-		Employee emp = empRepo.findById(1).orElse(null);
+		Employee emp = empRepo.findById(3).orElse(null);
 		assertTrue("Employee's salary is not in the correct range.", 
 				empRepoHelper.employeeSalaryInTheCorrectRange(emp.getRas(), emp.getSalary()));
 	}

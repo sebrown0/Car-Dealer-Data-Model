@@ -3,6 +3,7 @@
  */
 package com.sebrown.cardealer.datamodel.model.stock;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -25,7 +26,9 @@ import lombok.Setter;
 @Table(name="STOCK_LIST")
 @Getter @Setter
 @NoArgsConstructor
-public class StockList {
+public class StockList implements Serializable {
+
+	private static final long serialVersionUID = 3266639570568288623L;
 
 	@Id @Column(name = "stock_list_id") 
 	private int stockListId;

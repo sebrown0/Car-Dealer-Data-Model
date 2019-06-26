@@ -3,6 +3,7 @@
  */
 package com.sebrown.cardealer.datamodel.model.stock;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,9 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * @author Steve Brown
@@ -24,9 +23,10 @@ import lombok.Setter;
  */
 @Entity
 @Table(name="STOCK_STATUS")
-@Getter @Setter
-@NoArgsConstructor
-public class StockStatus {
+@Data
+public class StockStatus implements Serializable {
+
+	private static final long serialVersionUID = 7813126143879053820L;
 
 	@Id @Column(name = "status_id") 
 	private int statusId;
