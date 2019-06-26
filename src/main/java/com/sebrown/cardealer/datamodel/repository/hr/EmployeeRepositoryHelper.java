@@ -127,20 +127,24 @@ public class EmployeeRepositoryHelper {
 	/*
 	 * Record an employee's absenteeism.
 	 */
-	public EmployeeAbsent recordEmployeeAbsent(Employee emp, LocalDate startDate, LocalDate endDate, String reason) {
+	public EmployeeAbsent recordEmployeeAbsent(int empId, LocalDate startDate, LocalDate endDate, String reason) {
 		EmployeeAbsent empAbs = null;
-		AbsentYear absYear = findAbsentYear(emp, startDate);
-		long numDays = calculateNumberOfDaysAbsentInclusive(startDate, endDate);
-		if(numDays > 0 ) {
-			if(checksForAnnualLeaveAreOk(reason, absYear, numDays, emp.getEmpId())) {
-				empAbs = GenericBuilder.of(EmployeeAbsent::new)
-						.with(EmployeeAbsent::setAbsentStartDate, startDate)
-						.with(EmployeeAbsent::setAbsentEndDate, endDate)
-						.with(EmployeeAbsent::setAbsentYear, absYear)
-						.with(EmployeeAbsent::setNumDays, numDays)
-						.with(EmployeeAbsent::setReason, reason)
-						.build();
-				em.persist(empAbs);
+		Employee emp = empRepo.findById(empId).orElse(null);
+		if(emp != null) {
+			AbsentYear absYear = findAbsentYear(emp, startDate);
+			long numDays = calculateNumberOfDaysAbsentInclusive(startDate, endDate);
+			if(numDays > 0 ) {
+				if(checksForAnnualLeaveAreOk(reason, absYear, numDays, emp.getEmpId())) {
+					empAbs = GenericBuilder.of(EmployeeAbsent::new)
+							.with(EmployeeAbsent::setEmpAbsentId, absYear.getAbsentId())
+							.with(EmployeeAbsent::setAbsentStartDate, startDate)
+							.with(EmployeeAbsent::setAbsentEndDate, endDate)
+							.with(EmployeeAbsent::setAbsentYear, absYear)
+							.with(EmployeeAbsent::setNumDays, numDays)
+							.with(EmployeeAbsent::setReason, reason)
+							.build();
+					empAbsentRepo.save(empAbs);
+				}
 			}
 		}
 		return empAbs;
@@ -151,7 +155,7 @@ public class EmployeeRepositoryHelper {
 	 * If the employee has no absent record for the year, create one.
 	 */
 	private AbsentYear findAbsentYear(Employee emp, LocalDate startDate) {	
-		AbsentYear absentYear = absYearRepo.findByEmployeeAndYear(emp, (short)startDate.getYear());
+		AbsentYear absentYear = absYearRepo.findByEmployeeIdAndYear(emp.getEmpId(), (short)startDate.getYear());
 		if(absentYear == null) {
 			absentYear = createAbsentYear(emp, startDate);
 		}
@@ -165,7 +169,7 @@ public class EmployeeRepositoryHelper {
 		AbsentYear absentYear = new AbsentYear();
 		absentYear.setEmployee(emp);
 		absentYear.setYear((short)startDate.getYear());
-		absYearRepo.save(absentYear);
+		em.persist(absentYear);
 		return absentYear;
 	}			
 	
@@ -175,8 +179,7 @@ public class EmployeeRepositoryHelper {
 	 */
 	public long calculateNumberOfDaysAbsentInclusive(LocalDate startDate, LocalDate endDate) {
 		long businessDays = 0;
-		long numDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-				
+		long numDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);				
 		if(numDaysBetween > 0) {
 			businessDays = IntStream.iterate(0, i -> i + 1).limit(numDaysBetween).mapToObj(startDate::plusDays)
 				.filter(d -> Stream.of(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY)
@@ -220,7 +223,7 @@ public class EmployeeRepositoryHelper {
 	 * If the number of days requested are greater than those remaining, deny request. 
 	 */
 	private boolean checkEmployeesAnnualLeaveRecordForYear(AbsentYear absYear, long numDaysRequested, int empId) {
-		long numDaysAbsent = empAbsentRepo.numDaysEmployeeHasBeenAbsent(absYear, "Annual Leave");
+		long numDaysAbsent = empAbsentRepo.numDaysEmployeeHasBeenAbsent(absYear, "Annual Leave", empId);
 		long annualLeave = rasRepo.findSeniority(empId).getHolidayEntitlement();
 		long diff = (annualLeave - numDaysAbsent) - numDaysRequested;
 		return (diff >= 0 && diff <= annualLeave ) ? true : false;

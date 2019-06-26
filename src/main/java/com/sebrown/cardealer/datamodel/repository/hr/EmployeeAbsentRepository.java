@@ -20,13 +20,13 @@ public interface EmployeeAbsentRepository extends CrudRepository<EmployeeAbsent,
 	@Query("SELECT COALESCE(sum(e.numDays), 0)" 
 			+ " FROM EmployeeAbsent e" 
 			+ " WHERE e.absentYear=:absentYear" 
-			+ " AND e.reason=:reason")
-	long numDaysEmployeeHasBeenAbsent(AbsentYear absentYear, String reason);
-
+			+ " AND e.reason=:reason"
+			+ " AND e.absentYear.employee.empId=:empId")
+	long numDaysEmployeeHasBeenAbsent(AbsentYear absentYear, String reason, int empId);
 	
 	@Query("SELECT e" 
 			+ " FROM EmployeeAbsent e" 
-			+ " WHERE e.absentYear.year=:year" 
+			+ " WHERE e.absentYear.year=:year"
 			+ " AND e.absentYear.employee.empId=:empId")
 	List<EmployeeAbsent> findEmployeeAbsentRecordsForYear(short year, int empId);
 }

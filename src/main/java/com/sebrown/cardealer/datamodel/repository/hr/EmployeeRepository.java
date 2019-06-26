@@ -21,7 +21,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
 	@Query("SELECT e FROM Employee e WHERE firstName=:firstName AND lastName=:lastName")
 	Employee findByName(String firstName, String lastName);
 	
-	@Query("SELECT e FROM Employee e WHERE e.department.dept_id=:deptId")
+	@Query("SELECT e FROM Employee e WHERE e.department.deptId=:deptId")
 	List<Employee> findEmployeesForDeptId(int deptId);
 	
 }

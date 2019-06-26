@@ -3,7 +3,7 @@ package com.sebrown.cardealer.datamodel.model.hr;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,10 +28,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
  * 
@@ -44,7 +41,7 @@ import lombok.ToString;
 @JsonIgnoreProperties(value = {"empId", "department"}, 
 	allowGetters = true)
 @NamedQuery(name = "findEmployeeForDept", 
-	query = "select e from Employee e where e.empId = :eId and e.department.dept_id = :dId")
+	query = "select e from Employee e where e.empId = :eId and e.department.deptId = :dId")
 @NamedQuery(name = "getEmpsNames", 
 	query = "select e.firstName from Employee e")
 @NamedStoredProcedureQueries({
@@ -59,9 +56,7 @@ import lombok.ToString;
 	          mode = ParameterMode.IN)
 	    })
 	})
-@Getter @Setter 
-@NoArgsConstructor
-@ToString
+@Data
 public class Employee implements Serializable {
 	
 	private static final long serialVersionUID = 4659727704214359439L;
@@ -76,8 +71,8 @@ public class Employee implements Serializable {
 	@OneToOne @JoinColumn(name = "ras_Id")
 	private RoleAndSeniority ras;
 	
-	@OneToMany(mappedBy="employee", fetch=FetchType.EAGER)
-	private List<AbsentYear> absentYears;
+	@OneToMany(mappedBy="employee", fetch=FetchType.LAZY)
+	private Set<AbsentYear> absentYears;
 	
 	@Column(name = "first_name", nullable = false)
 	private String firstName;

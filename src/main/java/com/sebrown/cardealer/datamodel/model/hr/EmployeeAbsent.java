@@ -3,15 +3,13 @@
  */
 package com.sebrown.cardealer.datamodel.model.hr;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 
 import lombok.Getter;
@@ -26,10 +24,11 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class EmployeeAbsent {
+public class EmployeeAbsent implements Serializable{
 	
+	private static final long serialVersionUID = 2255870196697105379L;
+
 	@Id @Column(name = "emp_absent_id") 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int empAbsentId;
 	
 	@Column(name = "absent_start_date", nullable = false)
@@ -44,10 +43,7 @@ public class EmployeeAbsent {
 	@Column(name = "reason", nullable = false)
 	private String reason;
 	
-	@ManyToOne 
-	@JoinColumns({
-		@JoinColumn(name="absent_year_id", referencedColumnName="absent_id"),
-		@JoinColumn(name="absent_year_emp_id", referencedColumnName="emp_id")})
-    private AbsentYear absentYear;
-	
+	@ManyToOne
+	@JoinColumn(name="emp_absent_id", insertable = false, updatable = false)
+    private AbsentYear absentYear;	
 }

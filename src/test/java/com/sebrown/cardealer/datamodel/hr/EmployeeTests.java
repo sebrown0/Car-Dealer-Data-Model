@@ -58,7 +58,7 @@ public class EmployeeTests {
 	
 	@Test
 	public void saveNewEmployee() {		
-		Name empName = new Name("Employee", "Test-5");
+		Name empName = new Name("Employee", "Test-1");
 		Calendar empDob = Calendar.getInstance();
 		empDob.set(1991, 10, 10);
 		
@@ -71,7 +71,7 @@ public class EmployeeTests {
 				.seniority("Associate")
 				.hireDate(Calendar.getInstance())
 				.dob(empDob)
-				.ssn("1861-ET5-1991")
+				.ssn("1861-ET1-1991")
 				.build();
 		
 		Employee result = empRepoHelper.saveNewEmployee(newEmp);
