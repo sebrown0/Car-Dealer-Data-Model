@@ -3,20 +3,16 @@
  */
 package com.sebrown.cardealer.datamodel.controller.hr;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebrown.cardealer.datamodel.dto.EmployeeDto;
+import com.sebrown.cardealer.datamodel.dto.EmployeeData;
 import com.sebrown.cardealer.datamodel.model.hr.Employee;
 import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository;
-import com.sebrown.cardealer.datamodel.repository.hr.EmployeeRepositoryHelper;
-import com.sebrown.cardealer.datamodel.service.hr.EmployeeService;
+import com.sebrown.cardealer.datamodel.service.hr.NewEmployeeService;
 
 /**
  * @author Steve Brown
@@ -26,9 +22,6 @@ import com.sebrown.cardealer.datamodel.service.hr.EmployeeService;
 @RequestMapping("/api")
 public class EmployeeController {
 
-	@Autowired
-	EmployeeRepositoryHelper empRepoImpl;
-	
 //	@Autowired
 //	EmployeeRepository empRepo;
 	
@@ -36,12 +29,12 @@ public class EmployeeController {
 	DepartmentRepository deptRepo;
 	
 	@Autowired
-    EmployeeService empService;
+    NewEmployeeService newEmpService;
 	
-	@GetMapping("/employee")
-	public List<String> getAllEmployees(){
-		return empRepoImpl.getEmployeeNames();
-	}
+//	@GetMapping("/employee")
+//	public List<String> getAllEmployees(){
+//		return empRepoImpl.getEmployeeNames();
+//	}
 	
 //	@GetMapping("/employee/{id}")
 //	public Employee getEmployeeByID(@PathVariable(value="id") Integer empId){
@@ -49,8 +42,8 @@ public class EmployeeController {
 //	}
 	
 	@PostMapping(path = "/employee", consumes = "application/json", produces = "application/json")		
-	public String updateEmployee(@RequestBody EmployeeDto empDto){
-		Employee e = empService.saveNewEmployee(empDto);
+	public String updateEmployee(@RequestBody EmployeeData empDto){
+		Employee e = newEmpService.saveNewEmployee(empDto);
 		return e.getFirstName() + " " + e.getLastName() + " " + e.getEmpId();
 	}
 	

@@ -3,21 +3,11 @@
  */
 package com.sebrown.cardealer.datamodel.controller.stock;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebrown.cardealer.datamodel.dto.EmployeeDto;
-import com.sebrown.cardealer.datamodel.model.hr.Employee;
-import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository;
-import com.sebrown.cardealer.datamodel.repository.hr.EmployeeRepositoryHelper;
 import com.sebrown.cardealer.datamodel.repository.stock.CarRepository;
-import com.sebrown.cardealer.datamodel.service.hr.EmployeeService;
 
 /**
  * @author Steve Brown

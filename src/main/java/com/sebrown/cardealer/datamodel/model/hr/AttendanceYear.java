@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.Data;
 
@@ -26,7 +27,8 @@ import lombok.Data;
  */
 @Entity
 @Data
-public class AbsentYear implements Serializable {
+@Table(name = "Absent_Year")
+public class AttendanceYear implements Serializable {
 
 	private static final long serialVersionUID = -4971738461596965212L;
 	
@@ -37,7 +39,7 @@ public class AbsentYear implements Serializable {
 	private Employee employee;
 	
 	@OneToMany(mappedBy="absentYear", fetch=FetchType.EAGER, cascade=CascadeType.ALL)  
-	private Set<EmployeeAbsent> employeeAbsents;
+	private Set<EmployeeAttendance> employeeAbsents;
 	
 	@Column(name = "year", nullable = false)
 	private short year;

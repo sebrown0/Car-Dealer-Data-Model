@@ -6,17 +6,17 @@ package com.sebrown.cardealer.datamodel.service.hr;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository;
-import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository.DepartmentManager;
 
 /**
  * @author Steve Brown
  *
  *	Bean that finds the department manager for the given department id.
  */
-@Component
+
+@Service
 public class DepartmentManagerService implements Serializable {
 
 	private static final long serialVersionUID = 1049260444499517267L;

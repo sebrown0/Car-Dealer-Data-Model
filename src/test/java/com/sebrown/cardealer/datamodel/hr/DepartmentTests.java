@@ -1,6 +1,7 @@
 package com.sebrown.cardealer.datamodel.hr;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.sebrown.cardealer.datamodel.dto.ManagerData;
 import com.sebrown.cardealer.datamodel.model.hr.Department;
 import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository;
-import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository.DepartmentManager;
+import com.sebrown.cardealer.datamodel.service.hr.DepartmentManager;
 import com.sebrown.cardealer.datamodel.service.hr.DepartmentManagerService;
 
 @RunWith(SpringRunner.class)
@@ -21,11 +23,11 @@ public class DepartmentTests {
 	DepartmentRepository deptRepo;
 	
 	@Autowired
-	DepartmentManagerService dMan;
+	DepartmentManagerService deptManagerService;
 			
 	@Test
 	public void findDepartmentManager() {
-		DepartmentManager manager = deptRepo.findDeptManager(1);
+		DepartmentManager manager = deptManagerService.getDepartmentManager(1);
 		assertEquals("HR", manager.getDepartmentName());
 	}
 	
@@ -37,5 +39,11 @@ public class DepartmentTests {
 		assertEquals("IT", d.getManager().getDepartmentName());
 		assertEquals("Lisa", d.getManager().getFirstName());
 		assertEquals("Simpson", d.getManager().getLastName());
+	}
+	
+	@Test
+	public void managerDTO() {
+		ManagerData manager = new ManagerData(deptManagerService.getDepartmentManager(10));
+		assertTrue(manager.getManagerId() == null);
 	}
 }

@@ -25,10 +25,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 
@@ -72,7 +75,9 @@ import lombok.Data;
 @JsonIgnoreProperties(value = {"empId", "department"}, allowGetters = true)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Data
+@Component
+@Getter @Setter
+@NoArgsConstructor
 public class Employee implements Serializable {
 	
 	private static final long serialVersionUID = 4659727704214359439L;
@@ -88,7 +93,7 @@ public class Employee implements Serializable {
 	private RoleAndSeniority ras;
 	
 	@OneToMany(mappedBy="employee", fetch=FetchType.LAZY)
-	private Set<AbsentYear> absentYears;
+	private Set<AttendanceYear> absentYears;
 	
 	@Column(name = "manager_id", nullable = true)
 	private Integer managerId = null;

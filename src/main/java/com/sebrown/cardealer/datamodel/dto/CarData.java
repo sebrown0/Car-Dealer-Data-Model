@@ -13,7 +13,7 @@ import lombok.Data;
  *	DTO.
  */
 @Data
-public class CarDto {
+public class CarData {
 
 	private String modelVin;
 	private String modelName;
@@ -29,5 +29,5 @@ public class CarDto {
 	private boolean ac;
 	private int horsepower;
 	
-	public CarDto() {}
+	public CarData() {}
 }

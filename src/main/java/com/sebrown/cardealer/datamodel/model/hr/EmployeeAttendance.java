@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,14 +25,19 @@ import lombok.Setter;
  * Bean to record an employee's absenteeism.
  */
 @Entity
+@Component
 @Getter @Setter
 @NoArgsConstructor
-public class EmployeeAbsent implements Serializable{
+@Table(name = "Employee_Absent")
+public class EmployeeAttendance implements Serializable{
 	
 	private static final long serialVersionUID = 2255870196697105379L;
 
 	@Id @Column(name = "emp_absent_id") 
 	private int empAbsentId;
+	
+	@Column(name = "emp_id") 
+	private int empId;
 	
 	@Column(name = "absent_start_date", nullable = false)
 	private LocalDate absentStartDate;
@@ -45,5 +53,5 @@ public class EmployeeAbsent implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="emp_absent_id", insertable = false, updatable = false)
-    private AbsentYear absentYear;	
+    private AttendanceYear absentYear;	
 }

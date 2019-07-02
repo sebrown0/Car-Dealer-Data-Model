@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.sebrown.cardealer.datamodel.model.hr.Employee;
 
@@ -14,14 +15,12 @@ import com.sebrown.cardealer.datamodel.model.hr.Employee;
  * @author Steve Brown
  *
  */
-public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
-
-	Employee findEmployeeBySsn(String ssn);
+@Repository
+public interface EmployeesFinderRepository extends CrudRepository<Employee, Integer>{
 	
-	@Query("SELECT e FROM Employee e WHERE firstName=:firstName AND lastName=:lastName")
-	Employee findByName(String firstName, String lastName);
-	
+	/*
+	 * @Param deptId: Department ID from which to get list of employees. 	
+	 */
 	@Query("SELECT e FROM Employee e WHERE e.department.deptId=:deptId")
-	List<Employee> findEmployeesForDeptId(int deptId);
-	
+	List<Employee> findEmployeesByDeptId(int deptId);
 }

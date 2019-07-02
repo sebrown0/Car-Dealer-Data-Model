@@ -1,7 +1,7 @@
 package com.sebrown.cardealer.datamodel.stock;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -18,7 +18,9 @@ import com.sebrown.cardealer.datamodel.repository.stock.CarRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockFileRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockListRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockStatusRepository;
-import com.sebrown.cardealer.datamodel.service.stock.UpdateStockService;
+import com.sebrown.cardealer.datamodel.service.stock.StockFileNext;
+import com.sebrown.cardealer.datamodel.service.stock.StockFileFinder;
+import com.sebrown.cardealer.datamodel.service.stock.StockUpdateService;
 
 /*
  * Tests for Stock related functions.
@@ -41,7 +43,7 @@ public class StockCheckTests {
 	CarRepository carRepo;
 	
 	@Autowired
-	UpdateStockService updateStockService;
+	StockUpdateService updateStockService;
 	
 	/*
 	 * Tests for StockStatus.
@@ -58,7 +60,9 @@ public class StockCheckTests {
 	
 	@Test
 	public void checkForNewStockFile() {
-		assertTrue(updateStockService.aNewStockFileHasBeenFound());
+		StockFileFinder findNextFile = new StockFileNext(stockFileRepo);
+		StockFileNext nextStockFile = findNextFile.checkForNewFile();
+		assertNotNull(nextStockFile.getFileNum());
 	}
 		
 	/*

@@ -13,7 +13,7 @@ import com.sebrown.cardealer.datamodel.model.hr.Employee;
 import com.sebrown.cardealer.datamodel.model.hr.Role;
 import com.sebrown.cardealer.datamodel.model.hr.RoleAndSeniority;
 import com.sebrown.cardealer.datamodel.model.hr.Seniority;
-import com.sebrown.cardealer.datamodel.repository.hr.EmployeeRepository;
+import com.sebrown.cardealer.datamodel.repository.hr.EmployeeFinderRepository;
 import com.sebrown.cardealer.datamodel.repository.hr.RoleAndSeniorityRepository;
 
 @RunWith(SpringRunner.class)
@@ -24,7 +24,7 @@ public class RoleAndSeniorityTests {
 	private RoleAndSeniorityRepository roleRepo;
 	
 	@Autowired
-	private EmployeeRepository empRepo;
+	private EmployeeFinderRepository empRepo;
 			
 	@Test
 	public void findRoleAndSeniorityForARoleAndSeniority() {

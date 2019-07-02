@@ -14,7 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository.DepartmentManager;
+import com.sebrown.cardealer.datamodel.service.hr.DepartmentManager;
 
 import lombok.Data;
 

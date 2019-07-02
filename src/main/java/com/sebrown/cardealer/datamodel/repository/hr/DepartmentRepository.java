@@ -5,13 +5,16 @@ package com.sebrown.cardealer.datamodel.repository.hr;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.sebrown.cardealer.datamodel.model.hr.Department;
+import com.sebrown.cardealer.datamodel.service.hr.DepartmentManager;
 
 /**
  * @author Steve Brown
  *
  */
+@Repository
 public interface DepartmentRepository extends CrudRepository<Department, Integer>{
 	
 	Department findByDeptName(String name);
@@ -22,11 +25,4 @@ public interface DepartmentRepository extends CrudRepository<Department, Integer
 		" INNER JOIN department d ON d.dept_id = e.dept_id" +  
 		" WHERE e.dept_id = ?1 AND e.emp_id = e.manager_id", nativeQuery = true)
 	DepartmentManager findDeptManager(int deptId);	
-	
-	public static interface DepartmentManager {
-		int getManagerId();
-		String getDepartmentName();
-		String getFirstName();
-		String getLastName();
-	}
 }
