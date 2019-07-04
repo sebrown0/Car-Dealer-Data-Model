@@ -6,6 +6,7 @@ package com.sebrown.cardealer.datamodel.service.hr;
 import java.util.List;
 
 import com.sebrown.cardealer.datamodel.dto.EmployeeAttendanceData;
+import com.sebrown.cardealer.datamodel.mapper.MapperAttendanceRecord;
 import com.sebrown.cardealer.datamodel.model.hr.EmployeeAttendance;
 import com.sebrown.cardealer.datamodel.repository.hr.AttendanceYearRepository;
 import com.sebrown.cardealer.datamodel.repository.hr.EmployeeAttendanceRepository;
@@ -35,7 +36,7 @@ public class UpdateEmployeeAnnualLeave implements StrategySaveAttendance{
 		this.empAttData = employeeAttData; 
 		if(checkAnnualLeaveRequest(this.empAttData.getEmpId())) {
 			this.empAttData.setReason(REASON);
-			newEmpAttendanceRecord = AttendanceRecordMapper.map(this.empAttData);
+			newEmpAttendanceRecord = MapperAttendanceRecord.map(this.empAttData);
 			empAttRepo.save(newEmpAttendanceRecord);
 		}
 		return newEmpAttendanceRecord;

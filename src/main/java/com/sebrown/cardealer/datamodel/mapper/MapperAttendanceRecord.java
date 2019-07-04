@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sebrown.cardealer.datamodel.service.hr;
+package com.sebrown.cardealer.datamodel.mapper;
 
 import com.sebrown.cardealer.datamodel.dto.EmployeeAttendanceData;
 import com.sebrown.cardealer.datamodel.model.hr.EmployeeAttendance;
@@ -12,7 +12,7 @@ import com.sebrown.cardealer.datamodel.util.GenericBuilder;
  *
  * Map an Employee Attendance DTO to an Employee Attendance Entity
  */
-public class AttendanceRecordMapper {
+public class MapperAttendanceRecord {
 	
 	public static EmployeeAttendance map(EmployeeAttendanceData empAttData) {
 	

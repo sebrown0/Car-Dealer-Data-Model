@@ -2,6 +2,7 @@ package com.sebrown.cardealer.datamodel.stock;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -18,9 +19,12 @@ import com.sebrown.cardealer.datamodel.repository.stock.CarRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockFileRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockListRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockStatusRepository;
-import com.sebrown.cardealer.datamodel.service.stock.StockFileNext;
+import com.sebrown.cardealer.datamodel.service.stock.FinderListByStrategy;
 import com.sebrown.cardealer.datamodel.service.stock.StockFileFinder;
+import com.sebrown.cardealer.datamodel.service.stock.StockFileNext;
 import com.sebrown.cardealer.datamodel.service.stock.StockUpdateService;
+import com.sebrown.cardealer.datamodel.service.stock.StrategyStockListAwaitingPrep;
+import com.sebrown.cardealer.datamodel.service.stock.StrategyStockListOrder;
 
 /*
  * Tests for Stock related functions.
@@ -44,7 +48,7 @@ public class StockCheckTests {
 	
 	@Autowired
 	StockUpdateService updateStockService;
-	
+		
 	/*
 	 * Tests for StockStatus.
 	 */
@@ -75,9 +79,15 @@ public class StockCheckTests {
 	}
 	
 	@Test 
-	public void findCarsForADefinedStockStatus() {
-		List<Car> carStock = listRepo.findCarsForADefinedStockStatus(statusRepo.findStockStatusByStatus("Awaiting Preparation"));
+	public void findCarsForStockStatusAwaitingPrep() {
+		List<Car> carStock = new FinderListByStrategy<Car>().find(new StrategyStockListAwaitingPrep(statusRepo));
 		assertEquals("FD12345FCS", carStock.get(0).getModelVin());
+	}
+	
+	@Test 
+	public void findCarsForStockStatusOrder() {
+		List<Car> carStock = new FinderListByStrategy<Car>().find(new StrategyStockListOrder(statusRepo));
+		assertTrue(carStock.isEmpty());
 	}
 	
 	@Test 
@@ -86,5 +96,4 @@ public class StockCheckTests {
 		Car car = carRepo.findById("FD12345FCS").orElse(null);
 		assertEquals("black", car.getColour());
 	}
-	
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sebrown.cardealer.datamodel.dto.CarData;
+import com.sebrown.cardealer.datamodel.mapper.MapperCarData;
 import com.sebrown.cardealer.datamodel.model.stock.StockStatus;
 import com.sebrown.cardealer.datamodel.repository.hr.ManufacturerRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockFileRepository;
@@ -37,10 +38,10 @@ import lombok.Setter;
 @Transactional
 public class StockUpdateServiceImpl implements StockUpdateService {
 
+	private final ManufacturerRepository manRepo;;
 	private final StockFileRepository stockFileRepo;
 	private final StockStatusRepository stockStatusRepo;
 	private final StockListRepository stockListRepo;
-	private final ManufacturerRepository manRepo;
 	
 	private StockEntitiesUpdater stockEntitiesUpdater;
 	private StockFileInfo nextStockFile;
@@ -54,20 +55,22 @@ public class StockUpdateServiceImpl implements StockUpdateService {
 			}
 		}
 	}
-		
+	
 	private boolean thereIsAFileToRead() {
 		StockFileFinder findNextFile = new StockFileNext(stockFileRepo);
 		nextStockFile = findNextFile.checkForNewFile();
 		return (nextStockFile != null) ? true : false;
 	}
-	
+
 	private boolean fileReadOk() {
 		carData = StockFileReader.read(nextStockFile);
 		return (carData.isEmpty()) ? false : true;
 	}
 	
 	private boolean persistedStockOk() {
-		StockStatus s = stockStatusRepo.save(CarDataMapper.map(stockStatusRepo, manRepo, carData));
+		MapperCarData mapper = new MapperCarData(stockStatusRepo, manRepo);
+		StrategyStockList usingStrategy = new StrategyStockListAwaitingPrep(stockStatusRepo);
+		StockStatus s = stockStatusRepo.save(mapper.map(carData, usingStrategy));
 		return (s == null) ? false : true;
 	}
 	
