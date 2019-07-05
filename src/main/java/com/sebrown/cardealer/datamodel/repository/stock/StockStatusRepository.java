@@ -13,5 +13,4 @@ import com.sebrown.cardealer.datamodel.model.stock.StockStatus;
  */
 public interface StockStatusRepository extends CrudRepository<StockStatus, Integer>{
 	StockStatus findStockStatusByStatus(String status);
-	default StockStatusRepository getRepository() { return this; }
 }

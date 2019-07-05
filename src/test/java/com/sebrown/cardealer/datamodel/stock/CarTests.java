@@ -16,6 +16,7 @@ import com.sebrown.cardealer.datamodel.model.stock.StockStatus;
 import com.sebrown.cardealer.datamodel.repository.hr.ManufacturerRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.CarRepository;
 import com.sebrown.cardealer.datamodel.repository.stock.StockStatusRepository;
+import com.sebrown.cardealer.datamodel.service.stock.StrategyStockListAwaitingPrep;
 import com.sebrown.cardealer.datamodel.util.GenericBuilder;
 
 @RunWith(SpringRunner.class)
@@ -30,7 +31,7 @@ public class CarTests {
 
 	@Autowired
 	StockStatusRepository statusRepo;
-	
+		
 	@Test
 	public void findManufacturer() {
 		Manufacturer man = manRepo.findManufacturerByName("Ford");
@@ -42,7 +43,8 @@ public class CarTests {
 		Calendar dom = Calendar.getInstance();
 		dom.set(2019, 05, 22);
 		Manufacturer man = manRepo.findManufacturerByName("Ford");
-		StockStatus stockStatus = statusRepo.findStockStatusByStatus("Awaiting Preparation");
+		StockStatus stockStatus = statusRepo.findStockStatusByStatus(
+				new StrategyStockListAwaitingPrep(statusRepo).getStrategy());
 		Car newCar = GenericBuilder.of(Car::new)
 				.with(Car::setAc, true)
 				.with(Car::setAlloyWheels, true)
