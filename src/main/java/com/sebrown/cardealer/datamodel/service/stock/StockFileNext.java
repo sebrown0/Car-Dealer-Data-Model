@@ -27,14 +27,15 @@ public class StockFileNext implements StockFileFinder, StockFileInfo{
 	private int nextFileNum;
 	private String nextFileName;
 	private String nextFilePath;
+	private boolean fileFound = false;
 	
 	@Override
 	public StockFileNext checkForNewFile() {
 		if(aNewStockFileHasBeenFound()) {
 			nextFilePath = CAR_STOCK_PATH + nextFileName;
-			return this;
+			fileFound = true;
 		}
-		return null;
+		return this;
 	}
 	
 	private boolean aNewStockFileHasBeenFound() {
@@ -64,5 +65,10 @@ public class StockFileNext implements StockFileFinder, StockFileInfo{
 	@Override
 	public int getFileNum() {
 		return nextFileNum;
+	}
+
+	@Override
+	public boolean stockFileFound() {
+		return fileFound;
 	}
 }
