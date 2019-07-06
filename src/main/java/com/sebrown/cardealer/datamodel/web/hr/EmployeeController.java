@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sebrown.cardealer.datamodel.controller.hr;
+package com.sebrown.cardealer.datamodel.web.hr;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sebrown.cardealer.datamodel.dto.EmployeeData;
 import com.sebrown.cardealer.datamodel.model.hr.Employee;
-import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository;
 import com.sebrown.cardealer.datamodel.repository.hr.EmployeeFinderRepository;
 import com.sebrown.cardealer.datamodel.service.hr.ContextEmployeeFinder;
 import com.sebrown.cardealer.datamodel.service.hr.FindEmployeeById;
@@ -30,9 +29,6 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeFinderRepository empFinderRepo;
-	
-	@Autowired
-	DepartmentRepository deptRepo;
 	
 	@Autowired
     NewEmployeeService newEmpService;
@@ -56,5 +52,5 @@ public class EmployeeController {
 		newEmpService.saveNewEmployee(empData);
 		return empData;
 	}
-	
+
 }
