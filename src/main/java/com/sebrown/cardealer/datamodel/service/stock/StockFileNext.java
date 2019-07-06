@@ -8,6 +8,7 @@ import java.io.File;
 import org.springframework.stereotype.Component;
 
 import com.sebrown.cardealer.datamodel.repository.stock.StockFileRepository;
+import com.sebrown.cardealer.datamodel.service.ServiceConfiguration;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,9 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class StockFileNext implements StockFileFinder, StockFileInfo{
 
 	private final StockFileRepository stockFileRepo;
-	
-	protected static final String CAR_STOCK_PATH = ("src/main/resources/data/");
-	
+		
 	private int nextFileNum;
 	private String nextFileName;
 	private String nextFilePath;
@@ -32,7 +31,7 @@ public class StockFileNext implements StockFileFinder, StockFileInfo{
 	@Override
 	public StockFileNext checkForNewFile() {
 		if(aNewStockFileHasBeenFound()) {
-			nextFilePath = CAR_STOCK_PATH + nextFileName;
+			nextFilePath = ServiceConfiguration.CAR_STOCK_PATH + nextFileName;
 			fileFound = true;
 		}
 		return this;
@@ -40,7 +39,7 @@ public class StockFileNext implements StockFileFinder, StockFileInfo{
 	
 	private boolean aNewStockFileHasBeenFound() {
 		nextFileName = nextFileName();
-		return (isThereANewStockFile(CAR_STOCK_PATH + nextFileName)) ? true : false;
+		return (isThereANewStockFile(ServiceConfiguration.CAR_STOCK_PATH + nextFileName)) ? true : false;
 	}
 	
 	private String nextFileName() {
