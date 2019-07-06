@@ -14,31 +14,9 @@ import com.sebrown.cardealer.datamodel.repository.stock.CarRepository;
  *
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/car")
 public class CarController {
 
-	
 	@Autowired
-	CarRepository carRepo;
-	
-	//@Autowired
-	
-	
-	
-//	@GetMapping("/employee")
-//	public List<String> getAllEmployees(){
-//		return empRepoImpl.getEmployeeNames();
-//	}
-	
-//	@GetMapping("/employee/{id}")
-//	public Employee getEmployeeByID(@PathVariable(value="id") Integer empId){
-//		return empRepo.findById(empId).get();
-//	}
-	
-//	@PostMapping(path = "/employee", consumes = "application/json", produces = "application/json")		
-//	public String updateEmployee(@RequestBody EmployeeDto empDto){
-//		Employee e = empService.saveNewEmployee(empDto);
-//		return e.getFirstName() + " " + e.getLastName() + " " + e.getEmpId();
-//	}
-	
+	CarRepository carRepo;	
 }

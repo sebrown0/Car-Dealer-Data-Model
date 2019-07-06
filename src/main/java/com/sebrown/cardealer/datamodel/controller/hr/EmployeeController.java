@@ -3,7 +3,10 @@
  */
 package com.sebrown.cardealer.datamodel.controller.hr;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sebrown.cardealer.datamodel.dto.EmployeeData;
 import com.sebrown.cardealer.datamodel.model.hr.Employee;
 import com.sebrown.cardealer.datamodel.repository.hr.DepartmentRepository;
+import com.sebrown.cardealer.datamodel.repository.hr.EmployeeFinderRepository;
+import com.sebrown.cardealer.datamodel.service.hr.ContextEmployeeFinder;
+import com.sebrown.cardealer.datamodel.service.hr.FindEmployeeById;
 import com.sebrown.cardealer.datamodel.service.hr.NewEmployeeService;
 
 /**
@@ -19,11 +25,11 @@ import com.sebrown.cardealer.datamodel.service.hr.NewEmployeeService;
  *
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/employee")
 public class EmployeeController {
 
-//	@Autowired
-//	EmployeeRepository empRepo;
+	@Autowired
+	EmployeeFinderRepository empFinderRepo;
 	
 	@Autowired
 	DepartmentRepository deptRepo;
@@ -31,20 +37,24 @@ public class EmployeeController {
 	@Autowired
     NewEmployeeService newEmpService;
 	
+	
 //	@GetMapping("/employee")
 //	public List<String> getAllEmployees(){
 //		return empRepoImpl.getEmployeeNames();
 //	}
 	
-//	@GetMapping("/employee/{id}")
-//	public Employee getEmployeeByID(@PathVariable(value="id") Integer empId){
-//		return empRepo.findById(empId).get();
-//	}
+	@GetMapping(path = "/id/{id}")
+	public EmployeeData getEmployeeByID(@PathVariable(value="id") Integer empId){
+		ContextEmployeeFinder empFinder = new ContextEmployeeFinder(new FindEmployeeById(empId, empFinderRepo));
+		Employee e = empFinder.findEmployee();
+		EmployeeData empData = new ModelMapper().map(e, EmployeeData.class);
+		return empData;
+	}	
 	
-	@PostMapping(path = "/employee", consumes = "application/json", produces = "application/json")		
-	public String updateEmployee(@RequestBody EmployeeData empDto){
-		Employee e = newEmpService.saveNewEmployee(empDto);
-		return e.getFirstName() + " " + e.getLastName() + " " + e.getEmpId();
+	@PostMapping(path = "/new", consumes = "application/json", produces = "application/json")		
+	public EmployeeData updateEmployee(@RequestBody EmployeeData empData){
+		newEmpService.saveNewEmployee(empData);
+		return empData;
 	}
 	
 }
